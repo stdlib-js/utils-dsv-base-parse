@@ -20,9 +20,9 @@ limitations under the License.
 
 # parse
 
-[![NPM version][npm-image]][npm-url] <!-- [![dependencies][dependencies-image]][dependencies-url] -->
+[![NPM version][npm-image]][npm-url] [![Build Status][test-image]][test-url] [![Coverage Status][coverage-image]][coverage-url] <!-- [![dependencies][dependencies-image]][dependencies-url] -->
 
-> Parser for delimiter-separated values (DSV).
+> Incremental parser for delimiter-separated values (DSV).
 
 <!-- Section to include introductory text. Make sure to keep an empty line after the intro `section` element and another before the `/section` close. -->
 
@@ -62,7 +62,7 @@ var Parser = require( '@stdlib/utils-dsv-base-parse' );
 
 #### Parser( \[options] )
 
-Returns a parser for delimiter-separated values (DSV).
+Returns an incremental parser for delimiter-separated values (DSV).
 
 ```javascript
 var parse = new Parser();
@@ -292,7 +292,7 @@ After closing a parser, a parser raises an exception upon receiving any addition
 
 ## Notes
 
--   Special character sequences (i.e., delimiter, newline, quote, escape, and comment sequences) **must** all be unique with respect to one another and **no** special character sequence is allowed to be a subsequence of another special character sequence. Allowing common subsequences would lead to ambiguous parser states.
+-   Special character sequences (i.e., delimiter, newline, quote, escape, and comment sequences) **must** all be unique with respect to one another, and **no** special character sequence is allowed to be a subsequence of another special character sequence. Allowing common subsequences would lead to ambiguous parser states.
 
     For example, given the chunk `1,,3,4,,`, if `delimiter` is `','` and `newline` is `',,'`, is the first `,,` a field with no content or a newline? The parser cannot be certain, hence the prohibition.
 
