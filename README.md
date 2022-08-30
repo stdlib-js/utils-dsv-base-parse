@@ -34,38 +34,30 @@ limitations under the License.
 
 <!-- Package usage documentation. -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/utils-dsv-base-parse
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm` branch][esm-url].
+-   If you are using Deno, visit the [`deno` branch][deno-url].
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd` branch][umd-url].
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
-To use in Observable,
-
 ```javascript
-Parser = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js' )
-```
-
-To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
-
-```javascript
-var Parser = require( 'path/to/vendor/umd/utils-dsv-base-parse/index.js' )
-```
-
-To include the bundle in a webpage,
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js"></script>
-```
-
-If no recognized module system is present, access bundle contents via the global scope:
-
-```html
-<script type="text/javascript">
-(function () {
-    window.Parser;
-})();
-</script>
+var Parser = require( '@stdlib/utils-dsv-base-parse' );
 ```
 
 #### Parser( \[options] )
@@ -101,7 +93,7 @@ The constructor accepts the following `options`:
 -   **delimiter**: character sequence separating record fields (e.g., `','` for comma-separated values (CSV) and `\t` for tab-separated values (TSV)). Default: `','`.
 -   **doublequote**: `boolean` flag indicating how quote sequences should be escaped within a quoted field. When `true`, a quote sequence must be escaped by another quote sequence. When `false`, a quote sequence must be escaped by the escape sequence. Default: `true`.
 -   **escape**: character sequence for escaping character sequences having special meaning (i.e., the delimiter, newline, and escape sequences outside of quoted fields; the comment sequence at the beginning of a record and outside of a quoted field; and the quote sequence inside a quoted field when `doublequote` is `false`). Default: `''`.
--   **newline**: character sequence separating rows. Default: `'\r\n'`.
+-   **newline**: character sequence separating rows. Default: `'\r\n'` (see [RFC 4180][rfc-4180]).
 -   **onClose**: callback to be invoked upon closing the parser.
 -   **onColumn**: callback to be invoked upon processing a field.
 -   **onComment**: callback to be invoked upon processing a commented line.
@@ -336,14 +328,9 @@ After closing a parser, a parser raises an exception upon receiving any addition
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/string-format@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js"></script>
-<script type="text/javascript">
-(function () {
+```javascript
+var format = require( '@stdlib/string-format' );
+var Parser = require( '@stdlib/utils-dsv-base-parse' );
 
 function onColumn( v, row, col ) {
     console.log( format( 'Row: %d. Column: %d. Value: %s', row, col, v ) );
@@ -405,11 +392,6 @@ str = str.join( opts.newline );
 
 console.log( format( 'Input:\n\n%s\n', str ) );
 parse.next( str ).close();
-
-})();
-</script>
-</body>
-</html>
 ```
 
 </section>
