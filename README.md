@@ -34,38 +34,30 @@ limitations under the License.
 
 <!-- Package usage documentation. -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/utils-dsv-base-parse
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm` branch][esm-url].
+-   If you are using Deno, visit the [`deno` branch][deno-url].
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd` branch][umd-url].
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
-To use in Observable,
-
 ```javascript
-Parser = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js' )
-```
-
-To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
-
-```javascript
-var Parser = require( 'path/to/vendor/umd/utils-dsv-base-parse/index.js' )
-```
-
-To include the bundle in a webpage,
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js"></script>
-```
-
-If no recognized module system is present, access bundle contents via the global scope:
-
-```html
-<script type="text/javascript">
-(function () {
-    window.Parser;
-})();
-</script>
+var Parser = require( '@stdlib/utils-dsv-base-parse' );
 ```
 
 #### Parser( \[options] )
@@ -111,7 +103,7 @@ The constructor accepts the following `options`:
 
 -   **onClose**: callback to be invoked upon closing the parser. If a parser has partially processed a record upon close, the callback is invoked with the following arguments:
 
-    -   **value**: unparsed partially processed record text.
+    -   **value**: unparsed partially processed **field** text.
     
     Otherwise, the callback is invoked without any arguments.
 
@@ -135,6 +127,8 @@ The constructor accepts the following `options`:
     -   **record**: an array-like object containing field values. If provided a `rowBuffer`, the `record` argument will be the **same** array-like object for each invocation.
     -   **row**: row number (zero-based).
     -   **ncols**: number of fields (columns).
+    
+    If a parser is closed **before** fully processing the last record, the callback is invoked with field data for all fields which have been parsed. Any remaining field data is provided to the `onClose` callback. For example, if a parser has processed two fields and closes while attempting to process a third field, the parser invokes the `onRow` callback with field data for the first two fields and invokes the `onClose` callback with the partially processed data for the third field.
 
 -   **onSkip**: callback to be invoked upon processing a skipped line. The callback is invoked with the following arguments:
 
@@ -186,7 +180,7 @@ parse.next( '5,6,7,8\r\n' ); // => [ '5', '6', '7', '8' ]
 // ...
 ```
 
-Upon closing the parser, the parser invokes an `onClose` callback with any partially processed (i.e., incomplete) field data. Note, however, that the field data may not equal the original character sequence, as escape sequences may have already been removed.
+Upon closing the parser, the parser invokes an `onClose` callback with any partially processed (i.e., incomplete) **field** data. Note, however, that the field data may **not** equal the original character sequence, as escape sequences may have already been removed.
 
 ```javascript
 var format = require( '@stdlib/string-format' );
@@ -394,14 +388,9 @@ After closing a parser, a parser raises an exception upon receiving any addition
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/string-format@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js"></script>
-<script type="text/javascript">
-(function () {
+```javascript
+var format = require( '@stdlib/string-format' );
+var Parser = require( '@stdlib/utils-dsv-base-parse' );
 
 function onColumn( v, row, col ) {
     console.log( format( 'Row: %d. Column: %d. Value: %s', row, col, v ) );
@@ -470,11 +459,6 @@ str = str.join( opts.newline );
 
 console.log( format( 'Input:\n\n%s\n', str ) );
 parse.next( str ).close();
-
-})();
-</script>
-</body>
-</html>
 ```
 
 </section>
