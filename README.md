@@ -34,38 +34,30 @@ limitations under the License.
 
 <!-- Package usage documentation. -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/utils-dsv-base-parse
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm` branch][esm-url].
+-   If you are using Deno, visit the [`deno` branch][deno-url].
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd` branch][umd-url].
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
-To use in Observable,
-
 ```javascript
-Parser = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js' )
-```
-
-To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
-
-```javascript
-var Parser = require( 'path/to/vendor/umd/utils-dsv-base-parse/index.js' )
-```
-
-To include the bundle in a webpage,
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js"></script>
-```
-
-If no recognized module system is present, access bundle contents via the global scope:
-
-```html
-<script type="text/javascript">
-(function () {
-    window.Parser;
-})();
-</script>
+var Parser = require( '@stdlib/utils-dsv-base-parse' );
 ```
 
 #### Parser( \[options] )
@@ -107,6 +99,8 @@ The constructor accepts the following `options`:
 
 -   **ltrim**: `boolean` indicating whether to trim leading whitepsace from field values. If `false`, the parser does not trim leading whitespace (e.g., `a, b, c` parses as `[ 'a', ' b', ' c' ]`).  If `true`, the parser trims leading whitespace (e.g., `a, b, c` parses as `[ 'a', 'b', 'c' ]`). Default: `false`.
 
+-   **maxRows**: maximum number of records to process (excluding skipped lines). By default, the maximum number of records is unlimited.
+
 -   **newline**: character sequence separating rows. Default: `'\r\n'` (see [RFC 4180][rfc-4180]).
 
 -   **onClose**: callback to be invoked upon closing the parser. If a parser has partially processed a record upon close, the callback is invoked with the following arguments:
@@ -120,6 +114,7 @@ The constructor accepts the following `options`:
     -   **field**: field value.
     -   **row**: row number (zero-based).
     -   **col**: field (column) number (zero-based).
+    -   **line**: line number (zero-based).
 
 -   **onComment**: callback to be invoked upon processing a commented line. The callback is invoked with the following arguments:
 
@@ -135,6 +130,7 @@ The constructor accepts the following `options`:
     -   **record**: an array-like object containing field values. If provided a `rowBuffer`, the `record` argument will be the **same** array-like object for each invocation.
     -   **row**: row number (zero-based).
     -   **ncols**: number of fields (columns).
+    -   **line**: line number (zero-based).
     
     If a parser is closed **before** fully processing the last record, the callback is invoked with field data for all fields which have been parsed. Any remaining field data is provided to the `onClose` callback. For example, if a parser has processed two fields and closes while attempting to process a third field, the parser invokes the `onRow` callback with field data for the first two fields and invokes the `onClose` callback with the partially processed data for the third field.
 
@@ -156,6 +152,17 @@ The constructor accepts the following `options`:
 -   **rtrim**: `boolean` indicating whether to trim trailing whitepsace from field values. If `false`, the parser does not trim trailing whitespace (e.g., `a ,b ,c` parses as `[ 'a ', 'b ', 'c' ]`).  If `true`, the parser trims trailing whitespace (e.g., `a ,b ,c` parses as `[ 'a', 'b', 'c' ]`). Default: `false`.
 
 -   **skip**: character sequence appearing at the beginning of a row which demarcates that the row content should be parsed as a skipped record. Default: `''`.
+
+-   **skipBlankRows**: `boolean` flag indicating whether to skip over rows which are either empty or containing only whitespace. Default: `false`.
+
+-   **skipRow**: callback whose return value indicates whether to skip over a row. The callback is invoked with the following arguments:
+
+    -   **nrows**: number of processed rows (equivalent to the current row number).
+    -   **line**: line number (zero-based).
+    
+    If the callback returns a truthy value, the parser skips the row; otherwise, the parser attempts to process the row.
+
+    Note, however, that, even if the callback returns a falsy value, a row may still be skipped depending on the presence of a `skip` character sequence.
 
 -   **strict**: `boolean` flag indicating whether to raise an exception upon encountering invalid DSV. When `false`, instead of throwing an `Error` or invoking the `onError` callback, the parser invokes an `onWarn` callback with an `Error` object specifying the encountered error. Default: `true`.
 
@@ -396,14 +403,9 @@ After closing a parser, a parser raises an exception upon receiving any addition
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/string-format@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js"></script>
-<script type="text/javascript">
-(function () {
+```javascript
+var format = require( '@stdlib/string-format' );
+var Parser = require( '@stdlib/utils-dsv-base-parse' );
 
 function onColumn( v, row, col ) {
     console.log( format( 'Row: %d. Column: %d. Value: %s', row, col, v ) );
@@ -472,11 +474,6 @@ str = str.join( opts.newline );
 
 console.log( format( 'Input:\n\n%s\n', str ) );
 parse.next( str ).close();
-
-})();
-</script>
-</body>
-</html>
 ```
 
 </section>
