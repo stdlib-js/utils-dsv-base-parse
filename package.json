@@ -38,9 +38,11 @@
   },
   "dependencies": {
     "@stdlib/boolean-ctor": "^0.0.x",
+    "@stdlib/string-base-replace": "^0.0.x",
     "@stdlib/string-format": "^0.0.x",
     "@stdlib/utils-define-nonenumerable-read-only-accessor": "^0.0.x",
     "@stdlib/utils-define-nonenumerable-read-only-property": "^0.0.x",
+    "@stdlib/utils-escape-regexp-string": "^0.0.x",
     "@stdlib/utils-noop": "^0.0.x",
     "debug": "^2.6.9"
   },
