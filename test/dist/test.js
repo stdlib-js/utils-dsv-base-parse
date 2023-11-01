@@ -1,7 +1,7 @@
 /**
 * @license Apache-2.0
 *
-* Copyright (c) 2022 The Stdlib Authors.
+* Copyright (c) 2023 The Stdlib Authors.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -21,39 +21,13 @@
 // MODULES //
 
 var tape = require( 'tape' );
-var Parser = require( './../../dist' );
+var main = require( './../../dist' );
 
 
 // TESTS //
 
-tape( 'main export is a function', function test( t ) {
+tape( 'main export is defined', function test( t ) {
 	t.ok( true, __filename );
-	t.strictEqual( typeof Parser, 'function', 'main export is a function' );
-	t.end();
-});
-
-tape( 'the function is a constructor', function test( t ) {
-	var p = new Parser();
-	t.equal( p instanceof Parser, true, 'returns expected value' );
-	t.end();
-});
-
-tape( 'the function is a constructor (options)', function test( t ) {
-	var p = new Parser( {} );
-	t.equal( p instanceof Parser, true, 'returns expected value' );
-	t.end();
-});
-
-tape( 'the constructor does not require the `new` keyword', function test( t ) {
-	var parser = Parser;
-	var p = parser();
-	t.equal( p instanceof Parser, true, 'returns expected value' );
-	t.end();
-});
-
-tape( 'the constructor does not require the `new` keyword (options)', function test( t ) {
-	var parser = Parser;
-	var p = parser( {} );
-	t.equal( p instanceof Parser, true, 'returns expected value' );
+	t.strictEqual( main !== void 0, true, 'main export is defined' );
 	t.end();
 });
