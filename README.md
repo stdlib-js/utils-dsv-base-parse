@@ -52,6 +52,11 @@ limitations under the License.
 ## Usage
 
 ```javascript
+import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@deno/mod.js';
+```
+The previous example will load the latest bundled code from the deno branch. Alternatively, you may load a specific version by loading the file from one of the [tagged bundles](https://github.com/stdlib-js/utils-dsv-base-parse/tags). For example,
+
+```javascript
 import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@v0.2.0-deno/mod.js';
 ```
 
@@ -400,7 +405,7 @@ After closing a parser, a parser raises an exception upon receiving any addition
 
 ```javascript
 import format from 'https://cdn.jsdelivr.net/gh/stdlib-js/string-format@deno/mod.js';
-import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@v0.2.0-deno/mod.js';
+import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@deno/mod.js';
 
 function onColumn( v, row, col ) {
     console.log( format( 'Row: %d. Column: %d. Value: %s', row, col, v ) );
