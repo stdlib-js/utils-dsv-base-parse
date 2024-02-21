@@ -52,7 +52,7 @@ limitations under the License.
 ## Usage
 
 ```javascript
-import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@deno/mod.js';
+import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@v0.2.1-deno/mod.js';
 ```
 
 #### Parser( \[options] )
@@ -400,7 +400,7 @@ After closing a parser, a parser raises an exception upon receiving any addition
 
 ```javascript
 import format from 'https://cdn.jsdelivr.net/gh/stdlib-js/string-format@deno/mod.js';
-import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@deno/mod.js';
+import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@v0.2.1-deno/mod.js';
 
 function onColumn( v, row, col ) {
     console.log( format( 'Row: %d. Column: %d. Value: %s', row, col, v ) );
