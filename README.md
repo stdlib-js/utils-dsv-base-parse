@@ -45,14 +45,32 @@ limitations under the License.
 
 <!-- Package usage documentation. -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/utils-dsv-base-parse
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
+-   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
 ```javascript
-import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@deno/mod.js';
+var Parser = require( '@stdlib/utils-dsv-base-parse' );
 ```
 
 #### Parser( \[options] )
@@ -92,7 +110,7 @@ The constructor accepts the following `options`:
 
 -   **escape**: character sequence for escaping character sequences having special meaning (i.e., the delimiter, newline, and escape sequences outside of quoted fields; the comment sequence at the beginning of a record and outside of a quoted field; and the quote sequence inside a quoted field when `doublequote` is `false`). Default: `''`.
 
--   **ltrim**: `boolean` indicating whether to trim leading whitepsace from field values. If `false`, the parser does not trim leading whitespace (e.g., `a, b, c` parses as `[ 'a', ' b', ' c' ]`).  If `true`, the parser trims leading whitespace (e.g., `a, b, c` parses as `[ 'a', 'b', 'c' ]`). Default: `false`.
+-   **ltrim**: `boolean` indicating whether to trim leading whitespace from field values. If `false`, the parser does not trim leading whitespace (e.g., `a, b, c` parses as `[ 'a', ' b', ' c' ]`).  If `true`, the parser trims leading whitespace (e.g., `a, b, c` parses as `[ 'a', 'b', 'c' ]`). Default: `false`.
 
 -   **maxRows**: maximum number of records to process (excluding skipped lines). By default, the maximum number of records is unlimited.
 
@@ -144,7 +162,7 @@ The constructor accepts the following `options`:
 
 -   **rowBuffer**: array-like object for the storing field values of the most recently processed record. When provided, the row buffer is **reused** and is provided to the `onRow` callback for each processed record. If a provided row buffer is a generic array, the parser grows the buffer as needed. If a provided row buffer is a typed array, the buffer size is fixed, and, thus, needs to be large enough to accommodate processed fields. Providing a fixed length array is appropriate when the number of fields is known prior to parsing. When the number of fields is unknown, providing a fixed length array may still be appropriate; however, one is advised to allocate a buffer having more elements than is reasonably expected in order to avoid buffer overflow.
 
--   **rtrim**: `boolean` indicating whether to trim trailing whitepsace from field values. If `false`, the parser does not trim trailing whitespace (e.g., `a ,b ,c` parses as `[ 'a ', 'b ', 'c' ]`).  If `true`, the parser trims trailing whitespace (e.g., `a ,b ,c` parses as `[ 'a', 'b', 'c' ]`). Default: `false`.
+-   **rtrim**: `boolean` indicating whether to trim trailing whitespace from field values. If `false`, the parser does not trim trailing whitespace (e.g., `a ,b ,c` parses as `[ 'a ', 'b ', 'c' ]`).  If `true`, the parser trims trailing whitespace (e.g., `a ,b ,c` parses as `[ 'a', 'b', 'c' ]`). Default: `false`.
 
 -   **skip**: character sequence appearing at the beginning of a row which demarcates that the row content should be parsed as a skipped record. Default: `''`.
 
@@ -168,7 +186,7 @@ The constructor accepts the following `options`:
 The parser does **not** perform field conversion/transformation and, instead, is solely responsible for incrementally identifying fields and records. Further processing of fields/records is the responsibility of parser consumers who are generally expected to provide either an `onColumn` callback, an `onRow` callback, or both.
 
 ```javascript
-import format from 'https://cdn.jsdelivr.net/gh/stdlib-js/string-format@deno/mod.js';
+var format = require( '@stdlib/string-format' );
 
 function onColumn( field, row, col ) {
     console.log( format( 'Row: %d. Column: %d. Value: %s', row, col, field ) );
@@ -193,7 +211,7 @@ parse.next( '5,6,7,8\r\n' ); // => [ '5', '6', '7', '8' ]
 Upon closing the parser, the parser invokes an `onClose` callback with any partially processed (i.e., incomplete) **field** data. Note, however, that the field data may **not** equal the original character sequence, as escape sequences may have already been removed.
 
 ```javascript
-import format from 'https://cdn.jsdelivr.net/gh/stdlib-js/string-format@deno/mod.js';
+var format = require( '@stdlib/string-format' );
 
 function onClose( v ) {
     console.log( format( 'Incomplete: %s', v ) );
@@ -399,8 +417,8 @@ After closing a parser, a parser raises an exception upon receiving any addition
 <!-- eslint no-undef: "error" -->
 
 ```javascript
-import format from 'https://cdn.jsdelivr.net/gh/stdlib-js/string-format@deno/mod.js';
-import Parser from 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@deno/mod.js';
+var format = require( '@stdlib/string-format' );
+var Parser = require( '@stdlib/utils-dsv-base-parse' );
 
 function onColumn( v, row, col ) {
     console.log( format( 'Row: %d. Column: %d. Value: %s', row, col, v ) );
@@ -500,7 +518,7 @@ parse.next( str ).close();
 
 ## Notice
 
-This package is part of [stdlib][stdlib], a standard library with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
+This package is part of [stdlib][stdlib], a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
 
 For more information on the project, filing bug reports and feature requests, and guidance on how to develop [stdlib][stdlib], see the main project [repository][stdlib].
 
