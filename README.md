@@ -54,7 +54,7 @@ limitations under the License.
 To use in Observable,
 
 ```javascript
-Parser = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js' )
+Parser = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@v0.2.2-umd/browser.js' )
 ```
 
 To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
@@ -66,7 +66,7 @@ var Parser = require( 'path/to/vendor/umd/utils-dsv-base-parse/index.js' )
 To include the bundle in a webpage,
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@v0.2.2-umd/browser.js"></script>
 ```
 
 If no recognized module system is present, access bundle contents via the global scope:
@@ -427,7 +427,7 @@ After closing a parser, a parser raises an exception upon receiving any addition
 <html lang="en">
 <body>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/string-format@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@umd/browser.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/utils-dsv-base-parse@v0.2.2-umd/browser.js"></script>
 <script type="text/javascript">
 (function () {
 
