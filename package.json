@@ -1,6 +1,6 @@
 {
   "name": "@stdlib/utils-dsv-base-parse",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Incremental parser for delimiter-separated values (DSV).",
   "license": "Apache-2.0",
   "author": {
@@ -36,15 +36,15 @@
     "url": "https://github.com/stdlib-js/stdlib/issues"
   },
   "dependencies": {
-    "@stdlib/boolean-ctor": "^0.2.1",
-    "@stdlib/string-base-replace": "^0.2.1",
-    "@stdlib/string-format": "^0.2.1",
-    "@stdlib/utils-define-nonenumerable-read-only-accessor": "^0.2.2",
-    "@stdlib/utils-define-nonenumerable-read-only-property": "^0.2.1",
+    "@stdlib/boolean-ctor": "^0.2.2",
+    "@stdlib/string-base-replace": "^0.2.2",
+    "@stdlib/string-format": "^0.2.2",
+    "@stdlib/utils-define-nonenumerable-read-only-accessor": "^0.2.3",
+    "@stdlib/utils-define-nonenumerable-read-only-property": "^0.2.2",
     "@stdlib/utils-escape-regexp-string": "^0.2.1",
-    "@stdlib/utils-noop": "^0.2.1",
+    "@stdlib/utils-noop": "^0.2.2",
     "debug": "^2.6.9",
-    "@stdlib/error-tools-fmtprodmsg": "^0.2.1"
+    "@stdlib/error-tools-fmtprodmsg": "^0.2.2"
   },
   "devDependencies": {
     "@stdlib/math-base-special-pow": "^0.2.1",
